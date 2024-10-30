@@ -1,12 +1,30 @@
+import { Cliente } from "./Cliente.js";
 
 export class ContaCorrente{
     
-    cliente;
+    static numeroDeContas = 0;
+    _cliente;
     agencia; 
     _saldo = 0 ; //privado
 
+    constructor(cliente, agencia){
+        this.cliente = cliente;
+        this.agencia = agencia;
+        ContaCorrente.numeroDeContas += 1
+    }
+
     get saldo(){ //por ser um atributo privado para caso precise ver ele tenho que usar o getter(pega o que tem dentro do atributo privado )
-        return this._saldo
+        return this._saldo;
+    }
+
+    get cliente(){
+        return this._cliente;
+    }
+
+    set cliente(novoValor){
+        if(novoValor instanceof Cliente){
+            this._cliente = novoValor ;
+        }
     }
  
     deposito(valor){
@@ -29,3 +47,5 @@ export class ContaCorrente{
       const valorSacado = this.saque(valor);
       conta.deposito(valorSacado);  
     }
+
+}
